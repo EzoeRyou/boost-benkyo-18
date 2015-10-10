@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+
+<section>
+<h1>
+最新のC++標準化委員会の文書
+</h1>
+</section>
+
+<section>
+<p>
+江添亮
+</p>
+
+<p>
+株式会社ドワンゴ
+</p>
+
+<p>
+C++標準化委員会　委員
+</p>
+
+<p>
+ボルダリング　グレード4級
+</p>
+
+</section>
+
+<section>
+<h1>
+文書
+</h1>
+
+<p>
+2015-09 pre-Konaから抜粋
+</p>
+</section>
+
+<section>
+<h1>時代遅れの機能削除</h1>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0001r0.html">P0001R0</a>
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0002r0.html">P0002R0</a>
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0003r0.html">P0003R0</a>
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0004r0.html">P0004R0</a>
+</p>
+</section>
+
+<section>
+<h1>
+時代遅れの機能
+</h1>
+
+<p>
+いくつかの機能は
+</p>
+
+<p>
+deprecated（廃止予定）の扱いを受けている
+</p>
+
+<p>
+設計が悪い
+</p>
+
+<p>
+よりよい機能がある
+</p>
+
+<p>
+時代にそぐわなくなった
+</p>
+
+</section>
+
+<section>
+<p>
+registerキーワード廃止
+</p>
+
+<p>
+C++11でdeprecated
+</p>
+
+<p>
+C++17で完全に削除
+</p>
+</section>
+
+<section>
+<p>
+bool型に対するoperator ++の廃止
+</p>
+
+<p>
+C++98でdeprecated
+</p>
+
+<p>
+C++14で廃止検討されたが却下
+</p>
+
+<p>
+後置記法の代替としてstd::excangeを追加
+</p>
+
+<p>
+C++17で廃止
+</p>
+
+<p>
+「20年も準備期間を与えたんだからもういいだろ」
+</p>
+</section>
+
+<section>
+<p>
+動的例外指定の廃止
+</p>
+
+<p>
+実際の使い勝手はあまり良くなかった
+</p>
+
+<p>
+1998年の時点で使うべきではないというお作法が確立
+</p>
+
+<p>
+C++11でdeprecated
+</p>
+
+
+<p>
+C++17で廃止
+</p>
+</section>
+
+<section>
+<p>
+昔のiostreamのtypedef名を削除
+</p>
+
+<p>
+ios_baseにあるio_stateとかopen_modeとかそのへん
+</p>
+
+<p>メモリー
+正直あんまり興味なし
+</p>
+
+<p>
+C++98でdeprecated
+</p>
+
+<p>
+C++17で廃止
+</p>
+</section>
+
+<section>
+<h1>
+not_fn
+</h1>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0005r0.html">P0005R0</a>
+</p>
+</section>
+
+<section>
+<p>
+not_fnは戻り値にoperator !を適用して返す関数オブジェクトのラッパーを返す
+</p>
+
+<pre><code>bool f( ) { true ;}
+
+int main()
+{
+    auto nf = not_fn( &amp;f ) ;
+
+    nf() ; // false 
+}
+</code></pre>
+</section>
+
+<section>
+<p>
+もともとはLibrary Fundamentalsに入っていた
+</p>
+
+<p>
+独立していて便利
+</p>
+
+<p>
+これ単体だけ直接C++17に追加する
+</p>
+</section>
+
+<section>
+<p>
+変数テンプレートによるtraitsラッパー
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0006r0.html">P0006R0</a>
+</p>
+</section>
+
+<section>
+<p>
+::valueを書かなくてもすむ
+</p>
+
+<pre><code>// 面倒
+constexpr bool a = std::is_same&lt;int, int&gt;::value ;
+// 簡単
+constexpr bool b = std::is_same_v&lt;int, int&gt; ;
+</code></pre>
+</section>
+
+<section>
+<p>
+C++14の変数テンプレート
+</p>
+
+<p>
+みんなもう使ってるね？
+</p>
+
+<pre><code>template &lt; typename T, typename U &gt;
+constexpr bool is_same_v = is_same&lt;T, U&gt;::value ;
+</code></pre>
+</section>
+
+<section>
+<p>
+as_const
+</p>
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0007r0.html">P0007R0</a>
+</p>
+</section>
+
+<section>
+<p>
+T &amp;をT const &amp;にキャストできる
+</p>
+
+<pre><code>std::string str = "hello" ;
+std::string const &amp; cstr = std::as_const( str ) ;
+</code></pre>
+</section>
+
+<section>
+<p>
+代替案より便利
+</p>
+
+<pre><code>// 型を手で書く必要がある
+const_cast&lt; const std::string &amp; &gt; ( str ) ;
+// 汎用的だが長すぎる
+const_cast&lt; std::add_const&lt; decltype( str ) &gt;::type &gt;( str ) ;
+</code></pre>
+</section>
+
+<section>
+<p>
+Library Fundamentalsに入っている
+</p>
+
+<p>
+先行してC++17に入れる
+</p>
+</section>
+
+<section>
+<p>
+アグリゲート初期化の拡張
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0017r0.html">P0017R0</a>
+</p>
+</section>
+
+<section>
+<p>
+機械的な転送コンストラクターを書くのはダルい
+</p>
+
+<pre><code>struct user
+{
+    std::uint32_t id ;
+    std::string name ;
+
+    user( std::uint32_t id, std::string const &amp; name )
+        : id( id ), name( name ) 
+    { }
+} ;
+</code></pre>
+</section>
+
+<section>
+<p>
+C++11にはアグリゲート初期化がある
+</p>
+
+<pre><code>
+struct user
+{
+    std::uint32_t id ;
+    std::string name ;
+} ;
+
+user Bjarne{ 85, "Bjarne" } ; 
+</code></pre>
+</section>
+
+<section>
+<p>
+しかし
+</p>
+
+<p>
+アグリゲート初期化は基本クラスがある場合、できない
+</p>
+
+<pre><code>struct unique_id
+{
+    std::uint32_t id ;
+} ;
+
+struct user : unique_id
+{
+    std::string name ;
+} ;
+</code></pre>
+</section>
+
+<section>
+<p>
+たとえ基本クラスが
+</p>
+
+<p>
+デフォルト構築可能であっても
+</p>
+
+<p>
+空であっても
+</p>
+
+<p>
+できない
+</p>
+
+<pre><code>struct human_tag { } ;
+
+struct user : human_tag
+{
+    std::uint32_t id ;
+    std::string name ;
+} ;
+</code></pre>
+</section>
+
+<section>
+
+<p>
+単に引数の転送を行うだけの
+</p>
+
+<p>
+単調なコード(boilarplate code)
+</p>
+
+<p>
+書きたくない
+</p>
+
+<p>
+アグリゲート初期化を使いたい
+</p>
+</section>
+
+<section>
+<p>
+基本クラスを最初の要素としてしまおう。
+</p>
+
+<pre><code>
+user Bjanrne { {85}, "Bjarne" } ;
+</code></pre>
+</section>
+
+<section>
+<p>
+多重継承は順番通りに。
+</p>
+
+<pre><code>
+struct Id { std::uint32_t id ; } ;
+struct Name { std::string name ; } ;
+
+struct user : Id, Name { } ;
+
+user Bjarne{ {85}, {"Bjarne"} } ;
+</code></pre>
+</section>
+
+<section>
+<p>
+lambda式で*thisを値キャプチャー
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0018r0.html">P0018R0</a>
+</p>
+</section>
+
+<section>
+<p>
+lambda式はthisポインターをキャプチャする。
+</p>
+
+<pre><code>struct X
+{
+    int data ;
+
+    std::function&lt; int () &gt; f()
+    {
+        // this-&gt;data
+        return [-]{ return data ; } ;
+    }
+} ;
+</code></pre>
+
+</section>
+
+<section>
+<p>
+C++14では汎用lambdaキャプチャーが追加された
+</p>
+
+<p>
+コピーできる
+</p>
+
+<pre><code>return [ data = data ]
+{
+    return data ;
+}
+</code></pre>
+</section>
+
+<section>
+<p>
+しかし
+</p>
+
+<p>
+*this（クラスオブジェクト）を値コピーしたい
+</p>
+
+<p>
+並列実行
+</p>
+
+<p>
+heterogeneousなメモリシステム
+</p>
+
+<p>
+NUMA
+</p>
+
+<p>
+の発展により
+</p>
+
+<p>
+データをクロージャーに食わせるより
+</p>
+
+<p>
+データにクロージャーを付与させるほうが都合がいい
+</p>
+</section>
+
+<section>
+
+<p>
+汎用lambdaキャプチャーで書く場合
+</p>
+
+<pre><code>return [=, tmp = *this]
+{
+    return tmp.data ;
+}
+</code></pre>
+</section>
+
+<section>
+
+<p>
+問題点
+</p>
+
+<p>
+thisポインターがキャプチャされる
+</p>
+
+<p>
+tmp.を書き忘れるとthis-&gt;dataになる。
+</p>
+
+<p>
+変数事にtmp.と書くのは極めて面倒
+</p>
+</section>
+
+<section>
+
+<p>
+*thisを値キャプチャできるようにしよう
+</p>
+</section>
+
+<section>
+<p>
+解決案1
+</p>
+
+<p>
+=の挙動を変える
+</p>
+
+<p>
+挙動の変更
+</p>
+
+<p>
+互換性ガー
+</p>
+</section>
+
+<section>
+<p>
+新しいキャプチャーデフォルト、* を作る
+</p>
+
+<p>
+=とほぼ同じ意味
+</p>
+
+<p>
+thisをコピーキャプチャする
+</p>
+
+<pre><code>// *thisと明示的に書くこともできる
+return [*]
+{
+    return data ;
+}
+</code></pre>
+
+
+
+</section>
+
+<section>
+<p>
+multi-range-based for loop
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0026r0.pdf">P0026R0</a>
+</p>
+</section>
+
+<section>
+<p>
+C++11にはいったrange-based for loopは便利だ
+</p>
+
+<pre><code>std::vector&lt; int &gt; v ;
+for ( auto &amp;&amp; elem : v )
+{
+    DoSomething( elem ) ;
+}
+</code></pre>
+</section>
+
+<section>
+<p>
+しかし
+</p>
+
+<p>
+現実には、複数のコンテナーを同時に回したいことがよくある
+</p>
+
+<pre><code>std::vector&lt;int&gt; v1. v2 ;
+
+for ( auto iter1 = v1.begin(), iter2 = v2.begin() ;
+    iter1 != v1.end() &amp;&amp; iter2 != v2.end() ;
+    ++iter1, ++iter2 )
+{
+    DoSomething( *iter1, *iter2 ) ;
+}
+</code></pre>
+</section>
+
+<section>
+<p>
+それ、Boostでできるよ
+</p>
+
+<pre class="fragment"><code>template &lt;typename Cont...&gt;
+auto multi_range(Cont&amp;... containers)
+{
+    return {
+        boost::make_zip_iterator(
+            boost::make_tuple(containers.begin()...)
+        ),
+        boost::make_zip_iterator(
+            boost::make_tuple(containers.end()...)
+    ) };
+} 
+
+for (auto&amp;&amp; t : multi_range(v1, v2))
+{
+    DoSomething(t.get&lt;0&gt;(), t.get&lt;1&gt;());
+} 
+</code></pre>
+</section>
+
+<section>
+<p>
+どれも面倒だ
+</p>
+
+<p>
+for_each風のライブラリで対応できるか
+</p>
+
+<p>
+あまりいいインターフェースが作れない
+</p>
+
+<p>
+コア言語によるサポートが必要だ
+</p>
+</section>
+
+<section>
+<p>
+multi-range-based for 
+</p>
+
+<p>
+任意個のrange-based forの組を書ける
+</p>
+
+<pre><code>for ( auto &amp;&amp; e1 : v1 ; auto &amp;&amp; e2 : v2 )
+{
+    DoSomething( e1, e2 ) ;
+}
+</code></pre>
+</section>
+
+<section>
+<p>
+Named Types
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0027r0.pdf">P0027R0</a>
+</p>
+</section>
+
+<section>
+<p>
+強いtypedef
+</p>
+
+<p>
+異なる型として区別される
+</p>
+
+<p>
+文法はまだ議論中
+</p>
+
+<pre><code>typedef int a ;
+newtype int b ;
+
+std::is_same_v&lt;a, int&gt; ; // true
+std::is_same_v&lt;b, int&gt; ; // falase
+</code></pre>
+</section>
+
+<section>
+<p>
+オーバーアラインされたメモリの動的確保
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0035r0.html">P0035R0</a>
+</p>
+</section>
+
+<section>
+<p>
+現行C++では
+</p>
+
+<p>
+必要を上回るアライメント要求を
+</p>
+
+<p>
+コンパイラーがサポートする必要はない
+</p>
+
+<p>
+このコードが16バイトアライメントされたメモリを返す保証はない
+</p>
+
+<pre><code>class alignas(16) float4 { float f[4] ;} ;
+float4 * new float4[1000] ;
+</code></pre>
+</section>
+
+<section>
+<p>
+オーバーアラインされたメモリを返す確保関数を規定しよう
+</p>
+
+<pre><code>void * operator new( std::size_t size,0 std::align_val_t alignment ) ;
+void operator delete ( void * ptr, std::align_val_t alignment ) ;
+</code></pre>
+</section>
+
+
+<section>
+<p>
+フラットコンテナー
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0038r0.html">P0038R0</a>
+</p>
+</section>
+
+<section>
+<p>
+Boost.ContainerのFlat Containerを標準ライブラリに提案
+</p>
+
+<p>
+flat_map, flat_set, flat_multimap, flat_multiset
+</p>
+
+<p>
+連続したストレージ上に確保される連想コンテナー
+</p>
+</section>
+
+<section>
+<p>
+アルゴリズム案1
+</p>
+
+<p>
+常に要素をソートしておく
+</p>
+
+<p>
+要素の追加、検索、削除にバイナリサーチ＋要素のシフト分の時間がかかる
+</p>
+
+</section>
+
+<section>
+<p>
+アルゴリズム案2
+</p>
+
+<p>
+ヒープ構造を構築
+</p>
+
+<p>
+要素の検索の歳のキャッシュ効率が良い
+</p>
+
+<p>
+委員会ではこちらのほうが注目が高い
+</p>
+
+<p>
+内部アルゴリズムの指定やアルゴリズム別のコンテナーも検討されている
+</p>
+</section>
+
+<section>
+<p>
+遅延追加
+</p>
+
+<p>
+要素の追加を遅延させるとコストを低下させることができる。
+</p>
+
+<p>
+しかし、意図せぬ挙動でユーザーを驚かせるかもしれない
+</p>
+</section>
+
+<section>
+<p>
+[[unused]], [[nodiscard]], [[fallthrough]]
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0068r0.pdf">P0068R0</a>
+</p>
+</section>
+
+<section>
+<p>
+[[unused]]
+</p>
+
+<p>
+使われていないエンティティに対する警告を抑制する
+</p>
+
+<pre><code>int x ; // コンパイラーが未使用警告を出す
+[[unused]] int x ; // 未使用警告は抑制される
+</code></pre>
+</section>
+
+<section>
+<p>
+[[nodiscard]]
+</p>
+
+<p>
+関数に指定した場合、戻り値が無視されると警告する
+</p>
+
+<pre><code>[[nodiscard]] bool f() ;
+
+int main()
+{
+    f() ; // 警告、戻り値が無視されている
+   
+    if( f() ) // OK
+        DoSomething() ;
+    else
+        DoErrorHandling() ;
+}
+</code></code>
+</section>
+
+<section>
+<p>
+型に指定すると、型を返す関数が[[discard]]指定される
+</p>
+
+<pre><code>[[nodiscard]] enum struct Status { success, error } ;
+Status TrySomething() ;
+
+int main()
+{
+    TrySomething() ; // 警告
+}
+</code></pre>
+</section>
+
+<section>
+<p>
+[[fallthrough]]
+</p>
+
+<p>
+switchのcase分の前に指定する
+</p>
+
+<p>
+caseを飛び越えた場合の警告がなくなる
+</p>
+
+<pre><code>switch( x )
+{
+    case 0 :
+        DoSomething() ;
+    case 1 : // 警告
+        DoSomething() ;
+        [[fallthrough]] ;
+    case 2 : // 警告なし
+        DoSomething() ;
+}
+</code></pre>
+</section>
+
+<section>
+<p>
+to_string/to_wstring
+</p>
+
+<p>
+以上
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0117r0.html">P0117R0</a>
+</p>
+</section>
+
+<section>
+<p>
+constexpr_if
+</p>
+
+<p>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0128r0.html">P0128R0</a>
+</p>
+</section>
+
+<section>
+<p>
+旧static_if
+</p>
+
+<pre><code>template &lt; typename T &gt;
+T sum( T &amp;&amp; t )
+{
+    constexpr_if ( has_func&lt;T&gt;::value )
+    {
+        t.func() ;
+    }
+    else
+    {
+        func( t ) ;
+    }
+}
+</code></pre>
+</section>
+
+<section>
+<p>
+この記事はドワンゴ勤務中に書かれた
+</p>
+
+<p>
+ドワンゴは本物のC++プログラマーを募集しています
+</p>
+
+<p>
+<a href="http://dwango.co.jp/recruit/">http://dwango.co.jp/recruit/</a>
+</p>
+</section>
+
+<section>
+<p>
+何でも質問してください
+</p>
+</section>
+
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
